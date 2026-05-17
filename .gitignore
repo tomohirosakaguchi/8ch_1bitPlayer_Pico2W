@@ -1,0 +1,20 @@
+# Build artifacts
+build/
+*.uf2
+*.elf
+*.bin
+*.hex
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# OS
+.DS_Store
+Thumbs.db

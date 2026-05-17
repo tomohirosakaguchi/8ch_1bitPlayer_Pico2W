@@ -22,7 +22,15 @@ include(pico_sdk_import.cmake)
 project(picow_sdcard_play C CXX ASM)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 17)
-set(PICO_BOARD pico2_w CACHE STRING "Board type")
+
+# Pico 2 board configuration (RP2350 - used for Pico 2 W)
+if(NOT DEFINED PICO_BOARD)
+    set(PICO_BOARD pico2 CACHE STRING "Board type")
+endif()
+
+if(NOT DEFINED PICO_PLATFORM)
+    set(PICO_PLATFORM rp2350 CACHE STRING "Pico platform")
+endif()
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()

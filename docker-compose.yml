@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  pico-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: pico2w-builder:latest
+    volumes:
+      - .:/workspace
+    working_dir: /workspace
+    command: /bin/bash
