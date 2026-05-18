@@ -29,13 +29,15 @@ jobs:
           python3
     
     - name: Clone Pico SDK
+      env:
+        PICO_SDK_PATH: ${{ github.workspace }}/../pico-sdk
       run: |
-        git clone -b 2.0.0 https://github.com/raspberrypi/pico-sdk.git ~/pico-sdk
-        cd ~/pico-sdk
+        git clone -b 2.0.0 https://github.com/raspberrypi/pico-sdk.git $PICO_SDK_PATH
+        cd $PICO_SDK_PATH
         git submodule update --init
     
     - name: Create build directory
-      run: mkdir -p build && cd build
+      run: mkdir -p build
     
     - name: Configure with CMake
       env:
@@ -45,7 +47,7 @@ jobs:
         cmake -DCMAKE_BUILD_TYPE=Release \
               -DPICO_BOARD=pico2 \
               -DPICO_PLATFORM=rp2350 \
-              -DPICO_SDK_PATH=${{ github.workspace }}/../pico-sdk \
+              -DPICO_SDK_PATH=$PICO_SDK_PATH \
               ..
     
     - name: Build project
