@@ -60,7 +60,7 @@ jobs:
     
     - name: Upload uf2 as artifact
       if: success()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: pico2w-firmware
         path: build/*.uf2
