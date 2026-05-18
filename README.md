@@ -116,7 +116,12 @@ WSD ファイルは以下のツールで作成できます：
 - Docker がインストール済みであること
 - docker-compose がインストール済みであること
 
-#### 方法2: ネイティブビルド
+#### 方法2: GitHub Actions を使用（最も簡単）
+
+- GitHub アカウントがあること
+- このリポジトリを fork またはクローンすること
+
+#### 方法3: ネイティブビルド
 
 - pico-sdk がインストール済みで `PICO_SDK_PATH` が通っていること
 - ARM GCC (`arm-none-eabi-gcc`) がインストール済みで PATH に通っていること
@@ -146,6 +151,25 @@ docker-compose run pico-build build-pico.sh
 ```
 
 ビルド完了後、`picow_sdcard_play.uf2` ファイルがプロジェクトルートに生成されます。
+
+### ビルド（GitHub Actions）
+
+このリポジトリの **Actions** タブから確認できます：
+
+1. 本ページの **Actions** タブをクリック
+2. **Build Pico 2 W** ワークフローを選択
+3. 最新のワークフロー実行を選択
+4. **Artifacts** セクションから `pico2w-firmware` をダウンロード
+
+またはコマンドラインで：
+
+```bash
+# GitHub CLI を使用（インストール必要）
+gh run list --repo AcoustOikawalab/8ch_1bitPlayer_Pico2W --workflow=build.yml
+gh run download <run-id> --repo AcoustOikawalab/8ch_1bitPlayer_Pico2W
+```
+
+ビルドはpush時に自動実行されます。
 
 ### ビルド（ネイティブ、参考用）
 
