@@ -97,15 +97,57 @@ PIO から 32bit ワードを送り出し、その下位 4bit をそれぞれ A/
 
 WSD フォーマット Ver.2.0 を前提にしているが、現状は「ヘッダからフレーム先頭位置が分かれば OK」という最小限の実装になっている。
 
+### WSD ファイルの作成
+
+WSD ファイルは以下のツールで作成できます：
+
+- [WSD-converter](https://github.com/AcoustOikawalab/WSD-converter)
+
+詳細な使用方法はリンク先のリポジトリを参照してください。
+
 ---
 
 ## ビルド手順
 
-前提:
+### 前提条件
+
+#### 方法1: Docker を使用する（推奨）
+
+- Docker がインストール済みであること
+- docker-compose がインストール済みであること
+
+#### 方法2: ネイティブビルド
 
 - pico-sdk がインストール済みで `PICO_SDK_PATH` が通っていること
 - ARM GCC (`arm-none-eabi-gcc`) がインストール済みで PATH に通っていること
 - CMake / Ninja などのビルドツールが利用可能であること
+
+### ビルド（Docker推奨）
+
+```sh
+git clone https://github.com/AcoustOikawalab/8ch_1bitPlayer_Pico2W.git
+cd 8ch_1bitPlayer_Pico2W
+
+# Docker image をビルド
+docker build -t pico2w-builder:latest .
+
+# プロジェクトをビルド
+docker run --rm -v $(pwd):/workspace pico2w-builder:latest build-pico.sh
+```
+
+またはdocker-compose を使用：
+
+```sh
+# Docker image をビルド
+docker-compose build
+
+# プロジェクトをビルド
+docker-compose run pico-build build-pico.sh
+```
+
+ビルド完了後、`picow_sdcard_play.uf2` ファイルがプロジェクトルートに生成されます。
+
+### ビルド（ネイティブ、参考用）
 
 ```sh
 git clone https://github.com/AcoustOikawalab/8ch_1bitPlayer_Pico2W.git
@@ -114,5 +156,8 @@ cd 8ch_1bitPlayer_Pico2W
 mkdir build
 cd build
 
-cmake .. -DPICO_BOARD=pico2_w
+cmake .. -DPICO_BOARD=pico2 -DPICO_PLATFORM=rp2350
 cmake --build . --config Release
+```
+
+詳細な Docker ビルド方法は [DOCKER_BUILD.md](DOCKER_BUILD.md) を参照してください。
